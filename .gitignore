@@ -1,0 +1,16 @@
+# WhatsApp session data 
+auth_info_baileys/
+
+# Dependencies
+node_modules/
+
+# Environment variables (Personal settings)
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System files
+.DS_Store
