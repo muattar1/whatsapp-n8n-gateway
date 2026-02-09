@@ -25,6 +25,7 @@ The complete automation logic. Once imported into n8n, it handles the data flow 
 A critical security file that ensures your personal WhatsApp session data (auth_info_baileys) remains private and is never uploaded to GitHub.
 
 📊 How the System Works
+
 Lead Management: The system connects to Airtable, where lead data (e.g., Software Houses) is pre-populated.
 
 Automated Processing: n8n fetches "Active" leads from Airtable, processes the information, and sends a command to our Custom API.
