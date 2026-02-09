@@ -1,0 +1,548 @@
+{
+  "name": "Outreach Workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        0
+      ],
+      "id": "0520af0f-faba-4098-81e2-c9ff1ade5cc1",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://142.93.71.208:3000/send",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "number",
+              "value": "={{ $json.Phone.replace(/\\D/g, '') }}"
+            },
+            {
+              "name": "message",
+              "value": "=Hi! I'm an Automation Specialist. I help software houses in Karachi streamline their internal operations and eliminate manual tasks using n8n. Are you open to a quick chat to see how we can save your team 10+ hours of manual work every week?"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        304,
+        0
+      ],
+      "id": "d1eec173-738c-498e-be03-6b1c62f820ff",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "operation": "search",
+        "base": {
+          "__rl": true,
+          "value": "app8XfBQp718kxtwZ",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://airtable.com/app8XfBQp718kxtwZ"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblELYxTR054A6Iur",
+          "mode": "list",
+          "cachedResultName": "leads",
+          "cachedResultUrl": "https://airtable.com/app8XfBQp718kxtwZ/tblELYxTR054A6Iur"
+        },
+        "filterByFormula": "{Status} = 'Active'",
+        "returnAll": false,
+        "limit": 10,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        0
+      ],
+      "id": "5f88a30d-1205-490c-a456-f6e722f2ca13",
+      "name": "Search records",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "hmYvWwmm2JsUQv1U",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 55
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        144,
+        0
+      ],
+      "id": "1fa215c8-4002-43f7-b529-20143fefb87c",
+      "name": "Wait",
+      "webhookId": "502713fa-0c97-4061-8dd5-e5f9e31e3285"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "base": {
+          "__rl": true,
+          "value": "app8XfBQp718kxtwZ",
+          "mode": "list",
+          "cachedResultName": "n8n",
+          "cachedResultUrl": "https://airtable.com/app8XfBQp718kxtwZ"
+        },
+        "table": {
+          "__rl": true,
+          "value": "tblELYxTR054A6Iur",
+          "mode": "list",
+          "cachedResultName": "leads",
+          "cachedResultUrl": "https://airtable.com/app8XfBQp718kxtwZ/tblELYxTR054A6Iur"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "id": "=",
+            "Status": "Contacted"
+          },
+          "matchingColumns": [
+            "id"
+          ],
+          "schema": [
+            {
+              "id": "id",
+              "displayName": "id",
+              "required": false,
+              "defaultMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": true,
+              "removed": false
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "string",
+              "readOnly": false,
+              "removed": false
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "canBeUsedToMatch": true,
+              "display": true,
+              "type": "options",
+              "options": [
+                {
+                  "name": "Pending",
+                  "value": "Pending"
+                },
+                {
+                  "name": "Active",
+                  "value": "Active"
+                },
+                {
+                  "name": "Dead",
+                  "value": "Dead"
+                },
+                {
+                  "name": "Contacted",
+                  "value": "Contacted"
+                }
+              ],
+              "readOnly": false,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "9fe31c40-a5da-4a5a-8535-f92f975f08c0",
+      "name": "Update record",
+      "credentials": {
+        "airtableTokenApi": {
+          "id": "hmYvWwmm2JsUQv1U",
+          "name": "Airtable Personal Access Token account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Search records": [
+      {
+        "json": {
+          "id": "rec0IbEUSZ7C6hojm",
+          "createdTime": "2026-02-06T17:39:51.000Z",
+          "Website": "http://www.10pearls.com/",
+          "Phone": "+92 21 34328447",
+          "Status": "Active"
+        },
+        "pairedItem": [
+          {
+            "item": 0
+          }
+        ]
+      },
+      {
+        "json": {
+          "id": "rec0UWT41bj9jPAfX",
+          "createdTime": "2026-02-06T17:39:51.000Z",
+          "Website": "http://www.awasoftware.com/",
+          "Email": "info@awasoftware.com",
+          "Phone": "+92 323 2555864",
+          "Status": "Active"
+        },
+        "pairedItem": [
+          {
+            "item": 0
+          }
+        ]
+      },
+      {
+        "json": {
+          "id": "rec7aX6c2kSRqoGM6",
+          "createdTime": "2026-02-06T17:39:51.000Z",
+          "Website": "https://www.itechavengers.com/",
+          "Email": "itechavengers@gmail.com, hello@itechavengers.com",
+          "Phone": "+974 7129 7305",
+          "Status": "Active"
+        },
+        "pairedItem": [
+          {
+            "item": 0
+          }
+        ]
+      },
+      {
+        "json": {
+          "id": "recEoG7Xir6zL7fDi",
+          "createdTime": "2026-02-06T17:39:50.000Z",
+          "Website": "https://www.icreativez.com/",
+          "Email": "hi@icreativez.com",
+          "Phone": "+92 310 0007149",
+          "Status": "Active"
+        },
+        "pairedItem": [
+          {
+            "item": 0
+          }
+        ]
+      },
+      {
+        "json": {
+          "id": "recIqsQDyofX8gD5B",
+          "createdTime": "2026-02-06T17:39:53.000Z",
+          "Website": "https://www.disrupt.com/",
+          "Phone": "+92 21 111 388 873",
+          "Status": "Active"
+        },
+        "pairedItem": [
+          {
+            "item": 0
+          }
+        ]
+      },
+      {
+        "json": {
+          "id": "recM1w7fXgiEmIqro",
+          "createdTime": "2026-02-06T17:39:50.000Z",
+          "Website": "https://contour-software.com/",
+          "Email": "info@contour-software.com, careers@contour-software.com",
+          "Phone": "+92 21 34306280",
+          "Status": "Active"
+        },
+        "pairedItem": [
+          {
+            "item": 0
+          }
+        ]
+      },
+      {
+        "json": {
+          "id": "recO1h0m20BuEkahS",
+          "createdTime": "2026-02-06T17:39:50.000Z",
+          "Website": "http://www.folio3.com/",
+          "Phone": "+92 21 34323724",
+          "Status": "Active"
+        },
+        "pairedItem": [
+          {
+            "item": 0
+          }
+        ]
+      },
+      {
+        "json": {
+          "id": "recOEZ4p56UerMaI2",
+          "createdTime": "2026-02-06T17:39:53.000Z",
+          "Website": "http://www.genetechsolutions.com/",
+          "Phone": "+92 21 34558425",
+          "Status": "Active"
+        },
+        "pairedItem": [
+          {
+            "item": 0
+          }
+        ]
+      },
+      {
+        "json": {
+          "id": "recQAJe28ESxRKSsy",
+          "createdTime": "2026-02-06T17:39:53.000Z",
+          "Website": "http://venturedive.com/",
+          "Phone": "+92 21 38403660",
+          "Status": "Active"
+        },
+        "pairedItem": [
+          {
+            "item": 0
+          }
+        ]
+      },
+      {
+        "json": {
+          "id": "recURQqU6ayjpeMtl",
+          "createdTime": "2026-02-06T17:39:52.000Z",
+          "Website": "https://www.ictsystems.com.pk/",
+          "Email": "info@ictsystems.com.pk",
+          "Phone": "+92 331 3223528",
+          "Status": "Active"
+        },
+        "pairedItem": [
+          {
+            "item": 0
+          }
+        ]
+      }
+    ],
+    "Wait": [
+      {
+        "json": {
+          "id": "rec0IbEUSZ7C6hojm",
+          "createdTime": "2026-02-06T17:39:51.000Z",
+          "Website": "http://www.10pearls.com/",
+          "Phone": "+92 21 34328447",
+          "Status": "Active"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "id": "rec0UWT41bj9jPAfX",
+          "createdTime": "2026-02-06T17:39:51.000Z",
+          "Website": "http://www.awasoftware.com/",
+          "Email": "info@awasoftware.com",
+          "Phone": "+92 323 2555864",
+          "Status": "Active"
+        },
+        "pairedItem": {
+          "item": 1
+        }
+      },
+      {
+        "json": {
+          "id": "rec7aX6c2kSRqoGM6",
+          "createdTime": "2026-02-06T17:39:51.000Z",
+          "Website": "https://www.itechavengers.com/",
+          "Email": "itechavengers@gmail.com, hello@itechavengers.com",
+          "Phone": "+974 7129 7305",
+          "Status": "Active"
+        },
+        "pairedItem": {
+          "item": 2
+        }
+      },
+      {
+        "json": {
+          "id": "recEoG7Xir6zL7fDi",
+          "createdTime": "2026-02-06T17:39:50.000Z",
+          "Website": "https://www.icreativez.com/",
+          "Email": "hi@icreativez.com",
+          "Phone": "+92 310 0007149",
+          "Status": "Active"
+        },
+        "pairedItem": {
+          "item": 3
+        }
+      },
+      {
+        "json": {
+          "id": "recIqsQDyofX8gD5B",
+          "createdTime": "2026-02-06T17:39:53.000Z",
+          "Website": "https://www.disrupt.com/",
+          "Phone": "+92 21 111 388 873",
+          "Status": "Active"
+        },
+        "pairedItem": {
+          "item": 4
+        }
+      },
+      {
+        "json": {
+          "id": "recM1w7fXgiEmIqro",
+          "createdTime": "2026-02-06T17:39:50.000Z",
+          "Website": "https://contour-software.com/",
+          "Email": "info@contour-software.com, careers@contour-software.com",
+          "Phone": "+92 21 34306280",
+          "Status": "Active"
+        },
+        "pairedItem": {
+          "item": 5
+        }
+      },
+      {
+        "json": {
+          "id": "recO1h0m20BuEkahS",
+          "createdTime": "2026-02-06T17:39:50.000Z",
+          "Website": "http://www.folio3.com/",
+          "Phone": "+92 21 34323724",
+          "Status": "Active"
+        },
+        "pairedItem": {
+          "item": 6
+        }
+      },
+      {
+        "json": {
+          "id": "recOEZ4p56UerMaI2",
+          "createdTime": "2026-02-06T17:39:53.000Z",
+          "Website": "http://www.genetechsolutions.com/",
+          "Phone": "+92 21 34558425",
+          "Status": "Active"
+        },
+        "pairedItem": {
+          "item": 7
+        }
+      },
+      {
+        "json": {
+          "id": "recQAJe28ESxRKSsy",
+          "createdTime": "2026-02-06T17:39:53.000Z",
+          "Website": "http://venturedive.com/",
+          "Phone": "+92 21 38403660",
+          "Status": "Active"
+        },
+        "pairedItem": {
+          "item": 8
+        }
+      },
+      {
+        "json": {
+          "id": "recURQqU6ayjpeMtl",
+          "createdTime": "2026-02-06T17:39:52.000Z",
+          "Website": "https://www.ictsystems.com.pk/",
+          "Email": "info@ictsystems.com.pk",
+          "Phone": "+92 331 3223528",
+          "Status": "Active"
+        },
+        "pairedItem": {
+          "item": 9
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Search records",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search records": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Update record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f5f7c94b-e33b-41fc-ba37-8358138a5fe2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "3d1193b50436e78afd5ebcc6f6511feb5b2551c207aee2622198a56808688222"
+  },
+  "id": "0g4XzxCB75NxDIId",
+  "tags": []
+}
