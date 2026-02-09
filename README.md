@@ -3,6 +3,7 @@
 This repository features a self-hosted, Free WhatsApp API gateway and a complete automation workflow. It is designed to perform automated outreach without relying on expensive third-party APIs like Twilio or the Official WhatsApp Business API.
 
 🛠 What's inside this Repository?
+
 server.mjs (Custom WhatsApp API):
 
 A lightweight, self-hosted WhatsApp Gateway built with Node.js and the Baileys library.
